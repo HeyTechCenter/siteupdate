@@ -1,11 +1,16 @@
-import Header from '@/components/Header';
-import HeroSection from '@/components/HeroSection';
-import Manifeste from '@/components/Manifeste';
-import Services from '@/components/Services';
-import Insights from '@/components/Insights'; // Nouveau
-import CallToAction from '@/components/CallToAction'; // Nouveau
-import ContactForm from '@/components/ContactForm'; // Nouveau
-import Footer from '@/components/Footer'; // Nouveau
+import Header        from '@/components/Header';
+import HeroSection    from '@/components/HeroSection';
+import Manifeste      from '@/components/Manifeste';
+import Services       from '@/components/Services';
+import Departements   from '@/components/Departements';
+import Projets        from '@/components/Projets';
+import BuildInPublic  from '@/components/BuildInPublic';
+import Equipe         from '@/components/Equipe';
+import Temoignages    from '@/components/Temoignages';
+import Insights       from '@/components/Insights';
+import CallToAction   from '@/components/CallToAction';
+import ContactForm    from '@/components/ContactForm';
+import Footer         from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 
 export default function Home() {
@@ -15,11 +20,16 @@ export default function Home() {
       <HeroSection />
       <Manifeste />
       <Services />
-      <Insights />        {/* Section 10 */}
-      <CallToAction />    {/* Section 11 */}
-      <ContactForm />     {/* Section 12 */}
-      <Footer />          {/* Section 13 */}
-      <WhatsAppButton />  {/* Section 14 - déjà existant */}
+      <Departements />
+      <Projets />
+      <BuildInPublic />
+      <Equipe />
+      <Temoignages />
+      <Insights />
+      <CallToAction />
+      <ContactForm />
+      <Footer />
+      <WhatsAppButton />
     </main>
   );
 }
