@@ -5,14 +5,14 @@ const membres = [
   { nom: "Ibrahim", role: "CEO & AI Engineer", specialites: ["Machine Learning", "Architecture système"], dept: "AI & Research", icon: "👑" },
   { nom: "Penouel", role: "Chef DEV", specialites: ["Full Stack", "Architecture logicielle"], dept: "DEV", icon: "⚙️" },
   { nom: "Hapsat", role: "Chef IA", specialites: ["Deep Learning", "Computer Vision"], dept: "AI & Research", icon: "🤖" },
-  { nom: "Aysha", role: "Chef Akatsuki", specialites: ["Communication", "Marketing digital"], dept: "Akatsuki", icon: "📣" },
+  { nom: "Debora", role: "Chef Akatsuki", specialites: ["Communication", "Marketing digital"], dept: "Akatsuki", icon: "📣" },
   { nom: "Adam", role: "Dev Backend & IA", specialites: ["Node.js", "Python", "Prompt Engineering"], dept: "DEV", icon: "🏗️" },
   { nom: "Noé", role: "Développeur Full Stack", specialites: ["React", "Next.js", "UI/UX"], dept: "DEV", icon: "💻" },
-  { nom: "Membre 7", role: "Développeur Mobile", specialites: ["React Native", "Flutter"], dept: "DEV", icon: "📱" },
-  { nom: "Membre 8", role: "Data Scientist", specialites: ["Analyse de données", "Statistiques"], dept: "AI & Research", icon: "📊" },
-  { nom: "Membre 9", role: "Community Manager", specialites: ["Réseaux sociaux", "Contenu"], dept: "Akatsuki", icon: "🎨" },
-  { nom: "Membre 10", role: "Développeur Web", specialites: ["Vue.js", "Laravel"], dept: "DEV", icon: "🌐" },
-  { nom: "Membre 11", role: "Ingénieur Cloud", specialites: ["AWS", "Docker", "CI/CD"], dept: "DEV", icon: "☁️" },
+  { nom: "Sallah", role: "Développeur Mobile", specialites: ["React Native", "Flutter"], dept: "DEV", icon: "📱" },
+  { nom: "Chamsia", role: "Data Scientist", specialites: ["Analyse de données", "Statistiques"], dept: "AI & Research", icon: "📊" },
+  { nom: "Aysha", role: "Community Manager", specialites: ["Réseaux sociaux", "Contenu"], dept: "Akatsuki", icon: "🎨" },
+  { nom: "Idrissa", role: "Développeur Web", specialites: ["Vue.js", "Laravel"], dept: "DEV", icon: "🌐" },
+  { nom: "Amina", role: "Ingénieur Cloud", specialites: ["AWS", "Docker", "CI/CD"], dept: "DEV", icon: "☁️" },
 ];
 
 const deptColors = {
