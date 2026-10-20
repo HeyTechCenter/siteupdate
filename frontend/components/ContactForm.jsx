@@ -1,16 +1,24 @@
 'use client';
 import { useState } from 'react';
 
+// URL de l'API : vide en production (même domaine, Nginx redirige /api vers le backend)
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+
+const initialForm = {
+  name: '',
+  company: '',
+  email: '',
+  phone: '',
+  message: '',
+  website: '', // honeypot anti-spam : doit rester vide
+};
+
 export default function ContactForm() {
-  const [formData, setFormData] = useState({
-    nom: '',
-    entreprise: '',
-    email: '',
-    telephone: '',
-    projet: ''
-  });
+  const [formData, setFormData] = useState(initialForm);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // null | 'success' | 'error'
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,13 +28,34 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setSubmitStatus(null);
+    setErrorMessage('');
+
+    try {
+      const response = await fetch(`${API_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "Le message n'a pas pu être envoyé.");
+      }
+
       setSubmitStatus('success');
-      setFormData({ nom: '', entreprise: '', email: '', telephone: '', projet: '' });
-      setTimeout(() => setSubmitStatus(null), 5000);
-    }, 1500);
+      setFormData(initialForm);
+    } catch (err) {
+      // Erreur réseau (fetch) ou erreur renvoyée par l'API
+      setSubmitStatus('error');
+      setErrorMessage(
+        err instanceof TypeError
+          ? 'Impossible de joindre le serveur. Vérifiez votre connexion ou écrivez-nous sur WhatsApp.'
+          : err.message
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -71,7 +100,7 @@ export default function ContactForm() {
 
           {/* Formulaire à droite */}
           <div>
-            <form onSubmit={handleSubmit} className="bg-[#111111] p-8 rounded-2xl border border-[#1A7A4A]/20 shadow-xl">
+            <form onSubmit={handleSubmit} className="relative bg-[#111111] p-8 rounded-2xl border border-[#1A7A4A]/20 shadow-xl">
               <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                 <span className="w-1 h-6 bg-[#1A7A4A] rounded-full"></span>
                 Envoyez-nous un message
@@ -79,29 +108,33 @@ export default function ContactForm() {
               
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="nom" className="block text-gray-300 text-sm mb-2 font-medium">Nom complet </label>
+                  <label htmlFor="name" className="block text-gray-300 text-sm mb-2 font-medium">Nom complet </label>
                   <input
                     type="text"
-                    id="nom"
-                    name="nom"
-                    value={formData.nom}
+                    id="name"
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
                     required
+                    maxLength={100}
+                    autoComplete="name"
                     className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors"
                     placeholder=""
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="entreprise" className="block text-gray-300 text-sm mb-2 font-medium">Entreprise / Organisation</label>
+                  <label htmlFor="company" className="block text-gray-300 text-sm mb-2 font-medium">Entreprise / Organisation</label>
                   <input
                     type="text"
-                    id="entreprise"
-                    name="entreprise"
-                    value={formData.entreprise}
+                    id="company"
+                    name="company"
+                    value={formData.company}
                     onChange={handleChange}
+                    maxLength={150}
+                    autoComplete="organization"
                     className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors"
-                    placeholder="optionel"
+                    placeholder="Optionnel"
                   />
                 </div>
 
@@ -115,19 +148,23 @@ export default function ContactForm() {
                       value={formData.email}
                       onChange={handleChange}
                       required
+                      maxLength={254}
+                      autoComplete="email"
                       className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors"
                       placeholder=""
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="telephone" className="block text-gray-300 text-sm mb-2 font-medium">Téléphone</label>
+                    <label htmlFor="phone" className="block text-gray-300 text-sm mb-2 font-medium">Téléphone</label>
                     <input
                       type="tel"
-                      id="telephone"
-                      name="telephone"
-                      value={formData.telephone}
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
                       onChange={handleChange}
+                      maxLength={30}
+                      autoComplete="tel"
                       className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors"
                       placeholder=""
                     />
@@ -135,17 +172,32 @@ export default function ContactForm() {
                 </div>
 
                 <div>
-                  <label htmlFor="projet" className="block text-gray-300 text-sm mb-2 font-medium">Description du message</label>
+                  <label htmlFor="message" className="block text-gray-300 text-sm mb-2 font-medium">Description du message</label>
                   <textarea
-                    id="projet"
-                    name="projet"
-                    value={formData.projet}
+                    id="message"
+                    name="message"
+                    value={formData.message}
                     onChange={handleChange}
                     required
+                    maxLength={5000}
                     rows="4"
                     className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors resize-none"
                     placeholder="Parlez-nous de votre idée, vos besoins, vos objectifs..."
                   ></textarea>
+                </div>
+
+                {/* Honeypot anti-spam : invisible pour les humains et les lecteurs d'écran */}
+                <div className="absolute -left-[9999px] w-px h-px overflow-hidden" aria-hidden="true">
+                  <label htmlFor="website">Ne pas remplir ce champ</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
                 </div>
 
                 <button
@@ -173,11 +225,19 @@ export default function ContactForm() {
                   )}
                 </button>
 
-                {submitStatus === 'success' && (
-                  <div className="mt-4 p-3 bg-green-500/20 border border-green-500 rounded-lg text-green-500 text-center">
-                    ✓ Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.
-                  </div>
-                )}
+                {/* Zone annoncée aux lecteurs d'écran */}
+                <div aria-live="polite">
+                  {submitStatus === 'success' && (
+                    <div className="mt-4 p-3 bg-green-500/20 border border-green-500 rounded-lg text-green-400 text-center">
+                      ✓ Message envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.
+                    </div>
+                  )}
+                  {submitStatus === 'error' && (
+                    <div role="alert" className="mt-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-300 text-center">
+                      {errorMessage}
+                    </div>
+                  )}
+                </div>
               </div>
             </form>
           </div>

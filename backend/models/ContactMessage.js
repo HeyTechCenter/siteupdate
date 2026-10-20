@@ -24,9 +24,10 @@ const ContactMessageSchema = new mongoose.Schema(
       default: '',
     },
     message: {
-      type:     String,
-      required: [true, 'La description du projet est obligatoire'],
-      trim:     true,
+      type:      String,
+      required:  [true, 'La description du projet est obligatoire'],
+      trim:      true,
+      maxlength: 5000,
     },
   },
   {

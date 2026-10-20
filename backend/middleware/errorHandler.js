@@ -18,10 +18,11 @@ const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // Erreur par défaut
-  res.status(err.statusCode || 500).json({
+  // Erreur par défaut — les détails internes (500) ne sont jamais renvoyés au client
+  const status = err.statusCode || err.status || 500;
+  res.status(status).json({
     success: false,
-    error:   err.message || 'Erreur serveur interne.',
+    error:   status < 500 && err.message ? err.message : 'Erreur serveur interne.',
   });
 };
 

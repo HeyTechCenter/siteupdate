@@ -1,17 +1,5 @@
-'use client';
-import { useState } from 'react';
-
+// Newsletter retirée : elle n'était que simulée (aucun envoi réel)
 export default function Footer() {
-  const [email, setEmail] = useState('');
-  const [newsletterStatus, setNewsletterStatus] = useState(null);
-
-  const handleNewsletter = (e) => {
-    e.preventDefault();
-    setNewsletterStatus('success');
-    setEmail('');
-    setTimeout(() => setNewsletterStatus(null), 3000);
-  }
-
   return (
     <footer className="bg-[#0A0A0A] border-t border-[#1A7A4A]/20">
       {/* Section principale */}

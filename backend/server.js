@@ -7,6 +7,9 @@ dotenv.config();
 
 const app = express();
 
+// Derrière Nginx : récupérer la vraie IP du visiteur (nécessaire au rate limit)
+app.set('trust proxy', 1);
+
 // ── Middlewares ───────────────────────────────────────────────
 // CORS_ORIGIN peut contenir plusieurs origines séparées par des virgules
 const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000')
@@ -14,7 +17,7 @@ const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000')
   .map((origin) => origin.trim())
   .filter(Boolean);
 app.use(cors({ origin: allowedOrigins }));
-app.use(express.json());
+app.use(express.json({ limit: '20kb' }));
 
 // ── Connexion MongoDB ─────────────────────────────────────────
 if (process.env.MONGO_URI) {
