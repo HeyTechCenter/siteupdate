@@ -1,3 +1,15 @@
-echo "node_modules/" > .gitignore
-echo ".env" >> .gitignore
-echo ".next/" >> .gitignore
+# Dépendances
+node_modules/
+
+# Variables d'environnement (secrets) — seul le modèle .env.example est versionné
+.env
+.env.*
+!.env.example
+
+# Builds
+.next/
+dist/
+
+# Divers
+.DS_Store
+*.log

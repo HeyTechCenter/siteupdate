@@ -8,7 +8,12 @@ dotenv.config();
 const app = express();
 
 // ── Middlewares ───────────────────────────────────────────────
-app.use(cors({ origin: process.env.CORS_ORIGIN || 'http://localhost:3000' }));
+// CORS_ORIGIN peut contenir plusieurs origines séparées par des virgules
+const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
 // ── Connexion MongoDB ─────────────────────────────────────────
