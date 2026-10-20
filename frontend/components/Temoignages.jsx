@@ -1,36 +1,11 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { temoignages as tousLesTemoignages } from '@/data/temoignages';
+import { visibles } from '@/lib/publication';
+import TodoBadge from '@/components/TodoBadge';
 
-const temoignages = [
-  {
-    id: 1,
-    nom: "Dr. Moussa Diallo",
-    role: "Directeur, ANSI Niger",
-    texte: "HeyTech Center a livré une solution de gestion moderne et fiable en un temps record. Une équipe sérieuse, rigoureuse et à l'écoute du client.",
-    note: 5,
-  },
-  {
-    id: 2,
-    nom: "Aïssata Koné",
-    role: "Professeure d'informatique, Université ADU",
-    texte: "Ces jeunes ont démontré un niveau technique remarquable. Leur projet capstone dépasse largement ce qu'on attend d'étudiants en licence.",
-    note: 5,
-  },
-  {
-    id: 3,
-    nom: "Ibrahim Mahamane",
-    role: "Entrepreneur, Niamey",
-    texte: "J'avais une idée, HeyTech l'a transformée en application mobile fonctionnelle. Professionnels, disponibles et passionnés.",
-    note: 5,
-  },
-  {
-    id: 4,
-    nom: "Fatouma Zakari",
-    role: "Mentor Tech, HubTech Niamey",
-    texte: "Rarement vu une équipe aussi jeune avec une vision aussi claire. Discipline, innovation et impact — ce ne sont pas juste des mots pour eux.",
-    note: 5,
-  },
-];
+// Contenu modifiable dans data/temoignages.js
+const temoignages = visibles(tousLesTemoignages);
 
 function Etoiles({ note }) {
   return (
@@ -49,7 +24,7 @@ function Etoiles({ note }) {
   );
 }
 
-export default function Temoignages() {
+function Carrousel() {
   const [actif, setActif] = useState(0);
   const itemsRef = useRef([]);
 
@@ -115,6 +90,8 @@ export default function Temoignages() {
               <p className="text-white font-bold">{temoignages[actif].nom}</p>
               <p className="text-[#1A7A4A] text-sm mt-1">{temoignages[actif].role}</p>
             </div>
+
+            <TodoBadge texte={temoignages[actif].todo} className="mt-6 inline-block" />
           </div>
 
           {/* Indicateurs */}
@@ -154,4 +131,10 @@ export default function Temoignages() {
       </div>
     </section>
   );
+}
+
+// Aucun témoignage publié → la section n'est pas affichée
+export default function Temoignages() {
+  if (temoignages.length === 0) return null;
+  return <Carrousel />;
 }

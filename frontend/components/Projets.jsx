@@ -1,69 +1,14 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { projets as tousLesProjets, categories } from '@/data/projets';
+import { visibles } from '@/lib/publication';
+import TodoBadge from '@/components/TodoBadge';
 
-const projets = [
-  {
-    id: 1,
-    titre: "Haské Énergie",
-    description: "Système de monitoring IoT pour mini-réseaux solaires avec prédiction ML et dashboard temps réel.",
-    stack: ["React", "Flask", "Firebase", "ESP32"],
-    categorie: "capstone",
-    image: "⚡",
-    lien: "#",
-  },
-  {
-    id: 2,
-    titre: "NIGERBIZ 360",
-    description: "Application mobile de gestion commerciale pour petits marchands au Niger — inventaire, ventes, finances.",
-    stack: ["React Native", "Expo", "Firebase"],
-    categorie: "interne",
-    image: "📦",
-    lien: "#",
-  },
-  {
-    id: 3,
-    titre: "Système de gestion ANSI",
-    description: "Plateforme de gestion des entrées/sorties des stagiaires, visiteurs et employés avec authentification JWT.",
-    stack: ["Node.js", "Express", "MySQL", "JavaScript"],
-    categorie: "client",
-    image: "🏢",
-    lien: "#",
-  },
-  {
-    id: 4,
-    titre: "LingoLocal",
-    description: "Application de traduction et d'apprentissage des langues locales africaines avec NLP.",
-    stack: ["Python", "React Native", "FastAPI"],
-    categorie: "interne",
-    image: "🌍",
-    lien: "#",
-  },
-  {
-    id: 5,
-    titre: "Plateforme E-learning",
-    description: "Système de formation en ligne avec cours vidéo, quiz interactifs et suivi de progression.",
-    stack: ["Next.js", "Node.js", "MongoDB"],
-    categorie: "capstone",
-    image: "📚",
-    lien: "#",
-  },
-  {
-    id: 6,
-    titre: "Système IA reconnaissance d'image",
-    description: "Modèle de classification d'images pour contrôle qualité en milieu industriel.",
-    stack: ["Python", "TensorFlow", "Flask", "React"],
-    categorie: "client",
-    image: "🔍",
-    lien: "#",
-  },
-];
+// Contenu modifiable dans data/projets.js
+const projets = visibles(tousLesProjets);
 
-const categories = [
-  { id: 'tous', label: 'Tous' },
-  { id: 'capstone', label: 'Projets Capstone' },
-  { id: 'interne', label: 'Projets Internes' },
-  { id: 'client', label: 'Projets Clients' },
-];
+// Libellé lisible d'une catégorie (ex. « Projets Clients »)
+const labelCategorie = (id) => categories.find((c) => c.id === id)?.label ?? id;
 
 export default function Projets() {
   const [filtre, setFiltre] = useState('tous');
@@ -143,8 +88,8 @@ export default function Projets() {
 
               <div className="p-6">
                 {/* Badge catégorie */}
-                <span className="text-xs font-semibold text-[#1A7A4A] bg-[#1A7A4A]/10 border border-[#1A7A4A]/20 px-3 py-1 rounded-full capitalize">
-                  {projet.categorie}
+                <span className="text-xs font-semibold text-[#1A7A4A] bg-[#1A7A4A]/10 border border-[#1A7A4A]/20 px-3 py-1 rounded-full">
+                  {labelCategorie(projet.categorie)}
                 </span>
 
                 {/* Titre */}
@@ -169,16 +114,20 @@ export default function Projets() {
                   ))}
                 </div>
 
-                {/* Bouton */}
-                <a
-                  href={projet.lien}
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-[#1A7A4A] hover:text-white transition-colors duration-200"
-                >
-                  Voir le projet
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </a>
+                {/* Bouton (seulement si le projet a un lien) */}
+                {projet.lien && (
+                  <a
+                    href={projet.lien}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-[#1A7A4A] hover:text-white transition-colors duration-200"
+                  >
+                    Voir le projet
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </a>
+                )}
+
+                <TodoBadge texte={projet.todo} className="mt-4" />
               </div>
             </div>
           ))}

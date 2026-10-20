@@ -1,13 +1,13 @@
 'use client';
 import { useState } from 'react';
+import { lienWhatsApp } from '@/data/site';
 
 export default function WhatsAppButton() {
   const [hovered, setHovered] = useState(false);
 
-  // Remplace par le vrai numéro WhatsApp HeyTech (format international sans +)
-  const phone   = '22790919103';
-  const message = 'Bonjour HeyTech Center, je souhaite discuter d\'un projet digital.';
-  const url     = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  const message = "Bonjour HeyTech Center, je souhaite discuter d'un projet digital.";
+  // Numéro modifiable dans data/site.js
+  const url     = lienWhatsApp(message);
 
   return (
     <a

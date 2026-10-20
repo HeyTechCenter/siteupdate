@@ -1,23 +1,11 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import { services as tousLesServices } from '@/data/services';
+import { visibles } from '@/lib/publication';
+import TodoBadge from '@/components/TodoBadge';
 
-const services = [
-  {
-    titre: 'Développement Web',
-    desc:  'Création de plateformes web modernes, performantes et sécurisées pour entreprises et organisations.',
-    icon:  '🌐',
-  },
-  {
-    titre: 'Applications Mobiles',
-    desc:  'Conception d\'applications mobiles Android et iOS centrées sur l\'expérience utilisateur.',
-    icon:  '📱',
-  },
-  {
-    titre: 'Intelligence Artificielle',
-    desc:  'Développement de solutions d\'analyse de données, automatisation et systèmes intelligents.',
-    icon:  '🤖',
-  },
-];
+// Contenu modifiable dans data/services.js
+const services = visibles(tousLesServices);
 
 export default function Services() {
   const itemsRef = useRef([]);
@@ -57,7 +45,7 @@ export default function Services() {
         </div>
 
         {/* Cartes */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {services.map((s, i) => (
             <div
               key={s.titre}
@@ -74,13 +62,26 @@ export default function Services() {
               <p className="text-gray-400 text-sm leading-relaxed">
                 {s.desc}
               </p>
+
+              {s.points && (
+                <ul className="mt-4 space-y-2">
+                  {s.points.map((point) => (
+                    <li key={point} className="flex gap-2 text-gray-300 text-sm leading-relaxed">
+                      <span className="text-[#F5C518]" aria-hidden="true">✓</span>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <TodoBadge texte={s.todo} className="mt-4" />
             </div>
           ))}
         </div>
 
         {/* Bouton */}
         <div
-          ref={(el) => (itemsRef.current[4] = el)}
+          ref={(el) => (itemsRef.current[1 + services.length] = el)}
           className="opacity-0 translate-y-8 transition-all duration-700 delay-500 text-center"
         >
           <a

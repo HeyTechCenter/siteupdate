@@ -1,3 +1,19 @@
+import { site, lienWhatsApp } from '@/data/site';
+import { services } from '@/data/services';
+import { visibles } from '@/lib/publication';
+
+// Liens de navigation du footer (ancres des sections de la page)
+const liensNavigation = [
+  { label: 'Accueil',  href: '#accueil' },
+  { label: 'Services', href: '#services' },
+  { label: 'Projets',  href: '#projets' },
+  { label: 'Équipe',   href: '#equipe' },
+  { label: 'Contact',  href: '#contact' },
+];
+
+// Expertises : services publiés (data/services.js)
+const expertises = visibles(services).map((s) => s.titre);
+
 // Newsletter retirée : elle n'était que simulée (aucun envoi réel)
 export default function Footer() {
   return (
@@ -11,12 +27,12 @@ export default function Footer() {
             <h3 className="text-[#1A7A4A] font-bold text-lg mb-3">HeyTech Center</h3>
             <p className="text-gray-400 text-sm leading-relaxed mb-4">
               Cabinet technologique spécialisé en développement logiciel et intelligence artificielle. 
-              Nous construisons l'avenir digital de l'Afrique.
+              Nous construisons l&apos;avenir digital de l&apos;Afrique.
             </p>
             <div className="flex gap-3">
               {/* Facebook */}
               <a
-                href="https://www.facebook.com/heytechcenter"
+                href={site.reseaux.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 bg-[#1A1A1A] rounded-full flex items-center justify-center text-gray-400 hover:bg-[#1877F2] hover:text-white transition-all duration-300"
@@ -29,7 +45,7 @@ export default function Footer() {
               
               {/* LinkedIn */}
               <a
-                href="https://www.linkedin.com/in/administration-heytech-center/"
+                href={site.reseaux.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 bg-[#1A1A1A] rounded-full flex items-center justify-center text-gray-400 hover:bg-[#0A66C2] hover:text-white transition-all duration-300"
@@ -42,7 +58,7 @@ export default function Footer() {
               
               {/* TikTok */}
               <a
-                href="https://www.tiktok.com/@heytechcenter"
+                href={site.reseaux.tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 bg-[#1A1A1A] rounded-full flex items-center justify-center text-gray-400 hover:bg-black hover:text-white transition-all duration-300"
@@ -59,13 +75,13 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold text-sm mb-4">Navigation</h4>
             <ul className="space-y-2">
-              {['Accueil', 'Projets', 'Équipe', 'Contact'].map((item) => (
-                <li key={item}>
+              {liensNavigation.map((lien) => (
+                <li key={lien.href}>
                   <a
-                    href={`#${item.toLowerCase()}`}
+                    href={lien.href}
                     className="text-gray-400 hover:text-[#1A7A4A] text-sm transition-colors"
                   >
-                    {item}
+                    {lien.label}
                   </a>
                 </li>
               ))}
@@ -76,7 +92,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold text-sm mb-4">Expertises</h4>
             <ul className="space-y-2">
-              {['Développement Web', 'Applications Mobiles', 'Intelligence Artificielle', 'Cloud & Sécurité'].map((item) => (
+              {expertises.map((item) => (
                 <li key={item}>
                   <a href="#services" className="text-gray-400 hover:text-[#1A7A4A] text-sm transition-colors">
                     {item}
@@ -91,19 +107,19 @@ export default function Footer() {
             <h4 className="text-white font-bold text-sm mb-4">Contact</h4>
             <ul className="space-y-3">
               <li>
-                <a href="mailto:contact@heytech.center" className="text-gray-400 hover:text-[#1A7A4A] text-sm flex items-center gap-2">
+                <a href={`mailto:${site.email}`} className="text-gray-400 hover:text-[#1A7A4A] text-sm flex items-center gap-2">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  contact@heytech.center
+                  {site.email}
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/22790919103" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#1A7A4A] text-sm flex items-center gap-2">
+                <a href={lienWhatsApp()} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#1A7A4A] text-sm flex items-center gap-2">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.149-.67.149-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
                   </svg>
-                  +227 90 91 91 03
+                  {site.whatsapp.affichage}
                 </a>
               </li>
               <li className="text-gray-400 text-sm flex items-center gap-2">
@@ -111,7 +127,7 @@ export default function Footer() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                Niamey, Niger
+                {site.ville}, {site.pays}
               </li>
             </ul>
           </div>

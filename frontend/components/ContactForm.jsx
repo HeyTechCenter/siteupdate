@@ -1,5 +1,11 @@
 'use client';
 import { useState } from 'react';
+import { chiffres } from '@/data/chiffres';
+import { visibles } from '@/lib/publication';
+import TodoBadge from '@/components/TodoBadge';
+
+// Chiffres affichés sous le texte (modifiables dans data/chiffres.js)
+const statistiques = visibles([chiffres.delaiReponse, chiffres.projets]);
 
 // URL de l'API : vide en production (même domaine, Nginx redirige /api vers le backend)
 const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
@@ -85,17 +91,18 @@ export default function ContactForm() {
               digitaliser votre activité, notre équipe est là pour vous accompagner.
             </p>
 
-            {/* Petite statistique ou témoignage rapide */}
-            <div className="pt-6 flex gap-6">
-              <div>
-                <div className="text-2xl font-bold text-white">24h</div>
-                <div className="text-gray-500 text-sm">Délai de réponse</div>
+            {/* Chiffres clés (masqués en production tant qu'ils ne sont pas confirmés) */}
+            {statistiques.length > 0 && (
+              <div className="pt-6 flex flex-wrap gap-6">
+                {statistiques.map((stat) => (
+                  <div key={stat.label}>
+                    <div className="text-2xl font-bold text-white">{stat.valeur}</div>
+                    <div className="text-gray-400 text-sm">{stat.label}</div>
+                    <TodoBadge texte={stat.todo} className="mt-2 max-w-48" />
+                  </div>
+                ))}
               </div>
-              <div>
-                <div className="text-2xl font-bold text-white">50+</div>
-                <div className="text-gray-500 text-sm">Projets réalisés</div>
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Formulaire à droite */}

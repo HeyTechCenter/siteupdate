@@ -1,5 +1,13 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import { chiffres } from '@/data/chiffres';
+import { lienWhatsApp } from '@/data/site';
+import { visibles } from '@/lib/publication';
+import TodoBadge from '@/components/TodoBadge';
+
+// Chiffres affichés dans le bandeau (modifiables dans data/chiffres.js)
+const statistiques = visibles([chiffres.projets, chiffres.experts, chiffres.support]);
+const [delaiReponse] = visibles([chiffres.delaiReponse]);
 
 export default function CallToAction() {
   const sectionRef = useRef(null);
@@ -60,22 +68,19 @@ export default function CallToAction() {
         </p>
 
         {/* Statistiques rapides */}
-        <div className="flex flex-wrap justify-center gap-8 mb-12">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-white">50+</div>
-            <div className="text-white/70 text-sm">Projets livrés</div>
+        {statistiques.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-8 mb-12">
+            {statistiques.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="text-3xl font-bold text-white">{stat.valeur}</div>
+                <div className="text-white/80 text-sm">{stat.label}</div>
+                <TodoBadge texte={stat.todo} className="mt-2 max-w-40 !text-white !border-white/60" />
+              </div>
+            ))}
           </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-white">11</div>
-            <div className="text-white/70 text-sm">Experts</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-white">24/7</div>
-            <div className="text-white/70 text-sm">Support</div>
-          </div>
-        </div>
+        )}
 
-        {/* Boutons CTA - MÊME COMPORTEMENT */}
+        {/* Boutons CTA */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
             href="#contact"
@@ -87,7 +92,7 @@ export default function CallToAction() {
             </svg>
           </a>
           <a
-            href="https://wa.me/22790919103"
+            href={lienWhatsApp()}
             target="_blank"
             rel="noopener noreferrer"
             className="group bg-white text-[#1A7A4A] hover:bg-[#F5C518] hover:text-[#1A1A1A] font-bold px-10 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg flex items-center gap-2 border-2 border-white"
@@ -100,9 +105,14 @@ export default function CallToAction() {
         </div>
 
         {/* Réponse rapide */}
-        <p className="text-white/60 text-sm mt-6">
-          ⚡ Réponse sous 24h ouvrées
-        </p>
+        {delaiReponse && (
+          <>
+            <p className="text-white/80 text-sm mt-6">
+              ⚡ Réponse sous {delaiReponse.valeur} ouvrées
+            </p>
+            <TodoBadge texte={delaiReponse.todo} className="mt-2 inline-block !text-white !border-white/60" />
+          </>
+        )}
       </div>
     </section>
   );

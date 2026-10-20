@@ -1,17 +1,22 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { temoignages } from '@/data/temoignages';
+import { ressources } from '@/data/insights';
+import { sectionVisible } from '@/lib/publication';
 
+// Les liens vers une section sans contenu publié sont retirés du menu
 const navLinks = [
   { label: 'Accueil',      href: '#accueil' },
   { label: 'À propos',     href: '#manifeste' },
+  { label: 'Services',     href: '#services' },
   { label: 'Départements', href: '#departements' },
   { label: 'Projets',      href: '#projets' },
   { label: 'Équipe',       href: '#equipe' },
-  { label: 'Témoignages',  href: '#temoignages' },
-  { label: 'Blog',         href: '#ressources' },
+  { label: 'Témoignages',  href: '#temoignages', visible: sectionVisible(temoignages) },
+  { label: 'Blog',         href: '#ressources',  visible: sectionVisible(ressources) },
   { label: 'Contact',      href: '#contact' },
-];
+].filter((link) => link.visible !== false);
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);

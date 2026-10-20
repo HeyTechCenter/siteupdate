@@ -1,19 +1,8 @@
 'use client';
 import { useEffect, useRef } from 'react';
-
-const membres = [
-  { nom: "Ibrahim", role: "CEO & AI Engineer", specialites: ["Machine Learning", "Architecture système"], dept: "AI & Research", icon: "👑" },
-  { nom: "Penouel", role: "Chef DEV", specialites: ["Full Stack", "Architecture logicielle"], dept: "DEV", icon: "⚙️" },
-  { nom: "Hapsat", role: "Chef IA", specialites: ["Deep Learning", "Computer Vision"], dept: "AI & Research", icon: "🤖" },
-  { nom: "Debora", role: "Chef Akatsuki", specialites: ["Communication", "Marketing digital"], dept: "Akatsuki", icon: "📣" },
-  { nom: "Adam", role: "Dev Backend & IA", specialites: ["Node.js", "Python", "Prompt Engineering"], dept: "DEV", icon: "🏗️" },
-  { nom: "Noé", role: "Développeur Full Stack", specialites: ["React", "Next.js", "UI/UX"], dept: "DEV", icon: "💻" },
-  { nom: "Sallah", role: "Développeur Mobile", specialites: ["React Native", "Flutter"], dept: "DEV", icon: "📱" },
-  { nom: "Chamsia", role: "Data Scientist", specialites: ["Analyse de données", "Statistiques"], dept: "AI & Research", icon: "📊" },
-  { nom: "Aysha", role: "Community Manager", specialites: ["Réseaux sociaux", "Contenu"], dept: "Akatsuki", icon: "🎨" },
-  { nom: "Idrissa", role: "Développeur Web", specialites: ["Vue.js", "Laravel"], dept: "DEV", icon: "🌐" },
-  { nom: "Amina", role: "Ingénieur Cloud", specialites: ["AWS", "Docker", "CI/CD"], dept: "DEV", icon: "☁️" },
-];
+import Image from 'next/image';
+// Contenu modifiable dans data/equipe.js
+import { membres } from '@/data/equipe';
 
 const deptColors = {
   "DEV": { bg: "bg-[#1A7A4A]/10", border: "border-[#1A7A4A]/30", text: "text-[#1A7A4A]" },
@@ -57,7 +46,7 @@ export default function Equipe() {
           </h2>
           <div className="w-16 h-1 bg-[#1A7A4A] mx-auto rounded-full" />
           <p className="text-gray-400 mt-6 max-w-xl mx-auto">
-            11 passionnés du digital qui construisent avant même d'avoir fini d'apprendre.
+            {membres.length} passionnés du digital qui construisent avant même d&apos;avoir fini d&apos;apprendre.
           </p>
         </div>
 
@@ -67,14 +56,18 @@ export default function Equipe() {
             const colors = deptColors[m.dept] || deptColors["DEV"];
             return (
               <div
-                key={i}
+                key={m.nom}
                 ref={(el) => (itemsRef.current[1 + i] = el)}
                 className="opacity-0 translate-y-8 transition-all duration-700 bg-[#1A1A1A] border border-[#1A7A4A]/20 rounded-2xl p-5 text-center hover:border-[#1A7A4A]/50 hover:shadow-[0_0_20px_rgba(26,122,74,0.1)] group"
                 style={{ transitionDelay: `${(i + 1) * 60}ms` }}
               >
                 {/* Avatar */}
-                <div className="w-16 h-16 bg-[#111111] rounded-full flex items-center justify-center text-3xl mx-auto mb-4 border border-[#1A7A4A]/20 group-hover:border-[#1A7A4A]/60 transition-colors duration-300">
-                  {m.icon}
+                <div className="relative w-16 h-16 bg-[#111111] rounded-full flex items-center justify-center text-3xl mx-auto mb-4 border border-[#1A7A4A]/20 group-hover:border-[#1A7A4A]/60 transition-colors duration-300 overflow-hidden">
+                  {m.photo ? (
+                    <Image src={m.photo} alt={`Photo de ${m.nom}`} fill sizes="64px" className="object-cover" />
+                  ) : (
+                    <span aria-hidden="true">{m.icon}</span>
+                  )}
                 </div>
 
                 {/* Nom */}

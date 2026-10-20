@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import { site } from '@/data/site';
 
 const moments = [
   { emoji: "🏗️", titre: "Naissance du projet", desc: "Tout a commencé avec une idée et beaucoup d'ambition. On a refusé d'attendre la fin des études.", date: "2024" },
@@ -99,7 +100,7 @@ export default function BuildInPublic() {
           <p className="text-gray-400 mb-4">Suis notre aventure en temps réel</p>
           <div className="flex justify-center gap-4">
             <a
-              href="https://www.facebook.com/heytechcenter"
+              href={site.reseaux.facebook}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#1877F2] text-white text-sm font-semibold px-6 py-2 rounded-full hover:opacity-90 transition-opacity"
@@ -107,7 +108,7 @@ export default function BuildInPublic() {
               Facebook
             </a>
             <a
-              href="https://www.linkedin.com/in/administration-heytech-center/"
+              href={site.reseaux.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#0A66C2] text-white text-sm font-semibold px-6 py-2 rounded-full hover:opacity-90 transition-opacity"

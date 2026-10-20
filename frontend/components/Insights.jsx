@@ -1,50 +1,13 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import { ressources as toutesLesRessources } from '@/data/insights';
+import { visibles } from '@/lib/publication';
+import TodoBadge from '@/components/TodoBadge';
 
-const ressources = [
-  {
-    id: 1,
-    titre: "L'avenir de l'IA en Afrique",
-    source: "TechCrunch",
-    date: "Décembre 2024",
-    commentaire: "Un article qui confirme notre vision : l'Afrique devient un acteur majeur de l'IA. Nous partageons particulièrement l'analyse sur les talents locaux.",
-    url: "https://techcrunch.com/",
-    auteur: "Ibrahim",
-    categorie: "IA"
-  },
-  {
-    id: 2,
-    titre: "Guide de cybersécurité pour les PME",
-    source: "ANSSI",
-    date: "Janvier 2025",
-    commentaire: "Des recommandations pratiques et accessibles. Chez HeyTech, nous appliquons ces standards dans tous nos projets.",
-    url: "https://www.ssi.gouv.fr/",
-    auteur: "Fatima",
-    categorie: "Sécurité"
-  },
-  {
-    id: 3,
-    titre: "État du développement mobile en 2025",
-    source: "State of JS",
-    date: "Février 2025",
-    commentaire: "Une étude passionnante sur les tendances du développement mobile. Nos choix technologiques (React Native, Flutter) sont alignés.",
-    url: "https://stateofjs.com/",
-    auteur: "Amadou",
-    categorie: "Mobile"
-  },
-  {
-    id: 4,
-    titre: "Guide UX/UI pour les marchés africains",
-    source: "UX Collective",
-    date: "Janvier 2025",
-    commentaire: "Des conseils précieux pour concevoir des applications adaptées aux réalités locales. À lire absolument !",
-    url: "https://uxdesign.cc/",
-    auteur: "Sarah",
-    categorie: "Design"
-  }
-];
+// Contenu modifiable dans data/insights.js
+const ressources = visibles(toutesLesRessources);
 
-export default function Ressources() {
+function ListeRessources() {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const cardsRef = useRef([]);
@@ -129,6 +92,8 @@ export default function Ressources() {
                   <span>{ressource.date}</span>
                 </div>
 
+                <TodoBadge texte={ressource.todo} className="mt-4" />
+
                 {/* Lien externe (visible au survol) */}
                 <div className="mt-4 flex items-center text-[#1A7A4A] text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span>Lire l'article original</span>
@@ -145,4 +110,10 @@ export default function Ressources() {
       </div>
     </section>
   );
+}
+
+// Aucun article publié → la section n'est pas affichée
+export default function Ressources() {
+  if (ressources.length === 0) return null;
+  return <ListeRessources />;
 }
