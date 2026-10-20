@@ -51,6 +51,8 @@ app.use(errorHandler);
 
 // ── Démarrage ─────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 Serveur HeyTech démarré sur le port ${PORT}`);
+// HOST=127.0.0.1 en production : l'API n'est joignable que via Nginx
+const HOST = process.env.HOST || '0.0.0.0';
+app.listen(PORT, HOST, () => {
+  console.log(`🚀 Serveur HeyTech démarré sur ${HOST}:${PORT}`);
 });
