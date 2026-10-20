@@ -53,9 +53,9 @@ export default function Services() {
               className="opacity-0 translate-y-8 transition-all duration-700 group bg-[#111111] border border-[#1A7A4A]/20 rounded-2xl p-8 hover:border-[#1A7A4A]/70 hover:shadow-[0_0_40px_rgba(26,122,74,0.12)] hover:-translate-y-1 cursor-default"
               style={{ transitionDelay: `${(i + 1) * 120}ms` }}
             >
-              <div className="text-5xl mb-6">{s.icon}</div>
+              <div className="text-5xl mb-6" aria-hidden="true">{s.icon}</div>
 
-              <h3 className="text-xl font-bold text-white mb-4 group-hover:text-[#1A7A4A] transition-colors duration-300">
+              <h3 className="text-xl font-bold text-white mb-4 group-hover:text-[#2FA36B] transition-colors duration-300">
                 {s.titre}
               </h3>
 

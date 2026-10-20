@@ -69,7 +69,7 @@ export default function BuildInPublic() {
                 {/* Carte */}
                 <div className="flex-1 bg-[#111111] border border-[#1A7A4A]/20 rounded-2xl p-6 hover:border-[#1A7A4A]/50 hover:shadow-[0_0_20px_rgba(26,122,74,0.1)] transition-all duration-300">
                   <div className="flex items-start gap-4">
-                    <div className="text-4xl flex-shrink-0">{moment.emoji}</div>
+                    <div className="text-4xl flex-shrink-0" aria-hidden="true">{moment.emoji}</div>
                     <div>
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="text-white font-bold">{moment.titre}</h3>
@@ -83,7 +83,7 @@ export default function BuildInPublic() {
                 </div>
 
                 {/* Point central (desktop) */}
-                <div className="hidden md:flex w-4 h-4 bg-[#1A7A4A] rounded-full flex-shrink-0 border-2 border-[#1A1A1A] z-10" />
+                <div aria-hidden="true" className="hidden md:flex w-4 h-4 bg-[#1A7A4A] rounded-full flex-shrink-0 border-2 border-[#1A1A1A] z-10" />
 
                 {/* Espace côté opposé */}
                 <div className="flex-1 hidden md:block" />

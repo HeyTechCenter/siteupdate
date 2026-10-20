@@ -24,18 +24,27 @@ export default function Header() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Fermeture du menu mobile avec la touche Échap
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (e) => { if (e.key === 'Escape') setMenuOpen(false); };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [menuOpen]);
+
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-[#1A1A1A] shadow-lg' : 'bg-transparent'
+      scrolled || menuOpen ? 'bg-[#1A1A1A] shadow-lg' : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
 
         {/* Logo */}
-        <a href="#accueil">
+        <a href="#accueil" aria-label="HeyTech Center — retour à l'accueil">
           <Image
             src="/logo.png"
             alt="HeyTech Center"
@@ -48,12 +57,12 @@ export default function Header() {
         </a>
 
         {/* Menu desktop */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-6" aria-label="Navigation principale">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-gray-300 hover:text-[#1A7A4A] text-sm transition-colors duration-200"
+              className="text-gray-300 hover:text-[#2FA36B] text-sm transition-colors duration-200"
             >
               {link.label}
             </a>
@@ -70,8 +79,12 @@ export default function Header() {
 
         {/* Burger mobile */}
         <button
-          className="md:hidden text-white focus:outline-none"
+          type="button"
+          className="md:hidden text-white p-2 -mr-2"
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-expanded={menuOpen}
+          aria-controls="menu-mobile"
         >
           <div className={`w-6 h-0.5 bg-white mb-1.5 transition-all ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
           <div className={`w-6 h-0.5 bg-white mb-1.5 transition-all ${menuOpen ? 'opacity-0' : ''}`} />
@@ -81,12 +94,12 @@ export default function Header() {
 
       {/* Menu mobile */}
       {menuOpen && (
-        <div className="md:hidden bg-[#1A1A1A] px-6 pb-6 flex flex-col gap-4">
+        <nav id="menu-mobile" aria-label="Navigation mobile" className="md:hidden bg-[#1A1A1A] px-6 pb-6 flex flex-col gap-1">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-gray-300 hover:text-[#1A7A4A] text-sm transition-colors"
+              className="text-gray-300 hover:text-[#2FA36B] text-base py-2 transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
@@ -94,12 +107,12 @@ export default function Header() {
           ))}
           <a
             href="#contact"
-            className="bg-[#1A7A4A] text-white text-sm font-semibold px-5 py-2 rounded-full text-center"
+            className="mt-3 bg-[#1A7A4A] text-white text-sm font-semibold px-5 py-3 rounded-full text-center"
             onClick={() => setMenuOpen(false)}
           >
             Travailler avec nous
           </a>
-        </div>
+        </nav>
       )}
     </header>
   );

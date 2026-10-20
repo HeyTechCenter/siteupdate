@@ -77,7 +77,7 @@ export default function ContactForm() {
             
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
               Prêt à <br />
-              <span className="text-[#1A7A4A] relative">
+              <span className="text-[#2FA36B] relative">
                 innover
                 <span className="absolute -bottom-2 left-0 w-full h-1 bg-[#1A7A4A] rounded-full"></span>
               </span>
@@ -125,7 +125,7 @@ export default function ContactForm() {
                     required
                     maxLength={100}
                     autoComplete="name"
-                    className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors"
+                    className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors"
                     placeholder=""
                   />
                 </div>
@@ -140,7 +140,7 @@ export default function ContactForm() {
                     onChange={handleChange}
                     maxLength={150}
                     autoComplete="organization"
-                    className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors"
+                    className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors"
                     placeholder="Optionnel"
                   />
                 </div>
@@ -157,7 +157,7 @@ export default function ContactForm() {
                       required
                       maxLength={254}
                       autoComplete="email"
-                      className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors"
+                      className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors"
                       placeholder=""
                     />
                   </div>
@@ -172,7 +172,7 @@ export default function ContactForm() {
                       onChange={handleChange}
                       maxLength={30}
                       autoComplete="tel"
-                      className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors"
+                      className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors"
                       placeholder=""
                     />
                   </div>
@@ -188,7 +188,7 @@ export default function ContactForm() {
                     required
                     maxLength={5000}
                     rows="4"
-                    className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors resize-none"
+                    className="w-full bg-[#1A1A1A] border border-[#1A7A4A]/30 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-[#1A7A4A] focus:ring-1 focus:ring-[#1A7A4A]/50 transition-colors resize-none"
                     placeholder="Parlez-nous de votre idée, vos besoins, vos objectifs..."
                   ></textarea>
                 </div>

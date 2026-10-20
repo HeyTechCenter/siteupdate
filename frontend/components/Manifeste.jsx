@@ -77,7 +77,7 @@ export default function Manifeste() {
           className="opacity-0 translate-y-8 transition-all duration-700 delay-200 flex items-center gap-4 mb-16"
         >
           <div className="flex-1 h-px bg-[#1A7A4A]/20" />
-          <span className="text-[#1A7A4A] text-sm font-semibold tracking-widest uppercase">
+          <span className="text-[#2FA36B] text-sm font-semibold tracking-widest uppercase">
             Nos valeurs
           </span>
           <div className="flex-1 h-px bg-[#1A7A4A]/20" />
@@ -92,8 +92,8 @@ export default function Manifeste() {
               className="opacity-0 translate-y-8 transition-all duration-700 bg-[#1A1A1A] border border-[#1A7A4A]/20 rounded-2xl p-8 text-center hover:border-[#1A7A4A]/60 hover:shadow-[0_0_30px_rgba(26,122,74,0.1)] group"
               style={{ transitionDelay: `${(i + 3) * 100}ms` }}
             >
-              <div className="text-4xl mb-4">{v.icon}</div>
-              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#1A7A4A] transition-colors duration-300">
+              <div className="text-4xl mb-4" aria-hidden="true">{v.icon}</div>
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#2FA36B] transition-colors duration-300">
                 {v.titre}
               </h3>
               <p className="text-gray-400 text-sm leading-relaxed">

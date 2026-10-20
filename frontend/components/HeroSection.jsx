@@ -9,14 +9,13 @@ export default function HeroSection() {
     const ctx = canvas.getContext('2d');
     let animationId;
 
-    const resize = () => {
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const PARTICLE_COUNT = 80;
+    // Moins de particules sur mobile (calcul en n² à chaque image)
+    const PARTICLE_COUNT = window.innerWidth < 768 ? 40 : 80;
+    // Préférence « réduire les animations » : une seule image fixe
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let visible = true;
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
     const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
       x:  Math.random() * canvas.width,
       y:  Math.random() * canvas.height,
@@ -55,12 +54,29 @@ export default function HeroSection() {
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
       });
 
-      animationId = requestAnimationFrame(draw);
+      if (!reduceMotion && visible) animationId = requestAnimationFrame(draw);
     };
+
+    const resize = () => {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+      // Sans animation, il faut redessiner l'image fixe après redimensionnement
+      if (reduceMotion) draw();
+    };
+    window.addEventListener('resize', resize);
+
+    // Pause de l'animation quand le hero n'est plus à l'écran
+    const observer = new IntersectionObserver(([entry]) => {
+      const etaitVisible = visible;
+      visible = entry.isIntersecting;
+      if (visible && !etaitVisible && !reduceMotion) draw();
+    });
+    observer.observe(canvas);
 
     draw();
     return () => {
       cancelAnimationFrame(animationId);
+      observer.disconnect();
       window.removeEventListener('resize', resize);
     };
   }, []);
@@ -70,7 +86,7 @@ export default function HeroSection() {
       id="accueil"
       className="relative w-full min-h-screen flex items-center justify-center bg-[#1A1A1A] overflow-hidden"
     >
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" aria-hidden="true" />
       <div className="absolute inset-0 bg-[#1A1A1A]/60" />
 
       {/* pt-24 pour ne pas coller au header fixe */}
@@ -78,7 +94,7 @@ export default function HeroSection() {
 
         {/* Titre */}
         <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-4">
-          Hey<span className="text-[#1A7A4A]">Tech</span> Center
+          Hey<span className="text-[#2FA36B]">Tech</span> Center
         </h1>
 
         {/* Accroche */}
@@ -102,15 +118,15 @@ export default function HeroSection() {
           </a>
           <a
             href="#contact"
-            className="border border-[#1A7A4A] text-[#1A7A4A] hover:bg-[#1A7A4A] hover:text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 hover:scale-105"
+            className="border border-[#1A7A4A] text-[#2FA36B] hover:bg-[#1A7A4A] hover:text-white font-semibold px-8 py-3 rounded-full transition-all duration-300 hover:scale-105"
           >
             Nous contacter
           </a>
         </div>
 
         {/* Scroll indicator */}
-        <div className="mt-16 flex flex-col items-center gap-2 opacity-50">
-          <span className="text-gray-500 text-xs tracking-widest uppercase">Scroll</span>
+        <div className="mt-16 flex flex-col items-center gap-2 opacity-50" aria-hidden="true">
+          <span className="text-gray-400 text-xs tracking-widest uppercase">Scroll</span>
           <div className="w-px h-8 bg-[#1A7A4A] animate-bounce" />
         </div>
 

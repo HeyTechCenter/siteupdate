@@ -8,6 +8,7 @@ const departements = [
     slogan: "L'usine de production technologique",
     icon: '💻',
     color: '#1A7A4A',
+    texte: '#2FA36B', // variante plus claire, lisible sur fond sombre
     description:
       "Notre département développement conçoit et livre des solutions web, mobile et cloud de haute qualité. Chaque projet est traité avec rigueur, de l'architecture au déploiement.",
     competences: ['Frontend', 'Backend', 'Sécurité', 'Cloud', 'APIs REST', 'Bases de données'],
@@ -18,6 +19,7 @@ const departements = [
     slogan: "Le laboratoire d'innovation",
     icon: '🤖',
     color: '#F5C518',
+    texte: '#F5C518',
     description:
       "Notre laboratoire IA explore, expérimente et intègre les technologies d'intelligence artificielle dans des solutions concrètes. De la recherche appliquée à la production.",
     competences: ['Machine Learning', 'Analyse de données', 'Recherche appliquée', 'NLP', 'Computer Vision', 'MLOps'],
@@ -28,6 +30,7 @@ const departements = [
     slogan: 'La cellule stratégique de communication',
     icon: '📣',
     color: '#7C3AED',
+    texte: '#A78BFA',
     description:
       "Akatsuki gère la présence digitale de HeyTech Center et de ses clients. Communication externe, marketing digital, création de contenu et stratégie de marque.",
     competences: ['Marketing digital', 'Réseaux sociaux', 'Communication externe', 'Création de contenu', 'Branding', 'Community Management'],
@@ -67,7 +70,7 @@ export default function Departements() {
             Notre organisation
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mt-3 mb-6">
-            Notre architecture d'expertise
+            Notre architecture d&apos;expertise
           </h2>
           <div className="w-16 h-1 bg-[#1A7A4A] mx-auto rounded-full" />
         </div>
@@ -94,12 +97,12 @@ export default function Departements() {
                 }}
               >
                 {/* Icône */}
-                <div className="text-5xl mb-5">{dept.icon}</div>
+                <div className="text-5xl mb-5" aria-hidden="true">{dept.icon}</div>
 
                 {/* Nom */}
                 <h3
                   className="text-xl font-bold mb-2 transition-colors duration-300"
-                  style={{ color: actif === dept.id ? dept.color : 'white' }}
+                  style={{ color: actif === dept.id ? dept.texte : 'white' }}
                 >
                   {dept.nom}
                 </h3>
@@ -115,6 +118,7 @@ export default function Departements() {
 
                 {/* Description (visible si actif) */}
                 <div
+                  id={`departement-${dept.id}`}
                   className={`overflow-hidden transition-all duration-500 ${
                     actif === dept.id ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
                   }`}
@@ -128,7 +132,7 @@ export default function Departements() {
                         key={comp}
                         className="text-xs font-medium px-3 py-1 rounded-full border"
                         style={{
-                          color: dept.color,
+                          color: dept.texte,
                           borderColor: `${dept.color}40`,
                           backgroundColor: `${dept.color}10`,
                         }}
@@ -140,9 +144,13 @@ export default function Departements() {
                 </div>
 
                 {/* Bouton expand */}
+                {/* Le clic remonte jusqu'à la carte, qui gère l'ouverture */}
                 <button
+                  type="button"
+                  aria-expanded={actif === dept.id}
+                  aria-controls={`departement-${dept.id}`}
                   className="mt-4 text-xs font-semibold flex items-center gap-1 transition-colors duration-200"
-                  style={{ color: dept.color }}
+                  style={{ color: dept.texte }}
                 >
                   {actif === dept.id ? 'Réduire' : 'En savoir plus'}
                   <svg
@@ -150,6 +158,7 @@ export default function Departements() {
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>

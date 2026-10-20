@@ -24,7 +24,7 @@ export default function Footer() {
           
           {/* Description et réseaux sociaux */}
           <div className="lg:col-span-2">
-            <h3 className="text-[#1A7A4A] font-bold text-lg mb-3">HeyTech Center</h3>
+            <h3 className="text-[#2FA36B] font-bold text-lg mb-3">HeyTech Center</h3>
             <p className="text-gray-400 text-sm leading-relaxed mb-4">
               Cabinet technologique spécialisé en développement logiciel et intelligence artificielle. 
               Nous construisons l&apos;avenir digital de l&apos;Afrique.
@@ -79,7 +79,7 @@ export default function Footer() {
                 <li key={lien.href}>
                   <a
                     href={lien.href}
-                    className="text-gray-400 hover:text-[#1A7A4A] text-sm transition-colors"
+                    className="text-gray-400 hover:text-[#2FA36B] text-sm transition-colors"
                   >
                     {lien.label}
                   </a>
@@ -94,7 +94,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {expertises.map((item) => (
                 <li key={item}>
-                  <a href="#services" className="text-gray-400 hover:text-[#1A7A4A] text-sm transition-colors">
+                  <a href="#services" className="text-gray-400 hover:text-[#2FA36B] text-sm transition-colors">
                     {item}
                   </a>
                 </li>
@@ -107,7 +107,7 @@ export default function Footer() {
             <h4 className="text-white font-bold text-sm mb-4">Contact</h4>
             <ul className="space-y-3">
               <li>
-                <a href={`mailto:${site.email}`} className="text-gray-400 hover:text-[#1A7A4A] text-sm flex items-center gap-2">
+                <a href={`mailto:${site.email}`} className="text-gray-400 hover:text-[#2FA36B] text-sm flex items-center gap-2">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
@@ -115,7 +115,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href={lienWhatsApp()} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#1A7A4A] text-sm flex items-center gap-2">
+                <a href={lienWhatsApp()} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#2FA36B] text-sm flex items-center gap-2">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.149-.67.149-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
                   </svg>
@@ -137,7 +137,7 @@ export default function Footer() {
       {/* Copyright */}
       <div className="border-t border-[#1A7A4A]/10 py-6">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-gray-500 text-xs">
+          <p className="text-gray-400 text-xs">
             © {new Date().getFullYear()} HeyTech Center. Tous droits réservés.
           </p>
         </div>

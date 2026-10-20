@@ -44,7 +44,7 @@ function ListeRessources() {
             Partage de connaissances
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mt-3 mb-6">
-            Veille <span className="text-[#1A7A4A]">& Ressources</span>
+            Veille <span className="text-[#2FA36B]">& Ressources</span>
           </h2>
           <div className="w-16 h-1 bg-[#1A7A4A] mx-auto rounded-full" />
           <p className="text-gray-300 max-w-2xl mx-auto mt-6">
@@ -68,7 +68,7 @@ function ListeRessources() {
               <div className="p-6">
                 {/* En-tête avec catégorie et source */}
                 <div className="flex justify-between items-start mb-3">
-                  <span className="bg-[#1A7A4A]/20 text-[#1A7A4A] text-xs font-semibold px-2 py-1 rounded">
+                  <span className="bg-[#1A7A4A]/20 text-[#2FA36B] text-xs font-semibold px-2 py-1 rounded">
                     {ressource.categorie}
                   </span>
                   <span className="text-gray-400 text-xs">
@@ -77,13 +77,13 @@ function ListeRessources() {
                 </div>
 
                 {/* Titre */}
-                <h3 className="text-white font-bold text-xl mb-2 group-hover:text-[#1A7A4A] transition-colors duration-300">
+                <h3 className="text-white font-bold text-xl mb-2 group-hover:text-[#2FA36B] transition-colors duration-300">
                   {ressource.titre}
                 </h3>
 
                 {/* Commentaire de l'équipe */}
                 <p className="text-gray-300 text-sm leading-relaxed mb-4 italic">
-                  "{ressource.commentaire}"
+                  &laquo;&nbsp;{ressource.commentaire}&nbsp;&raquo;
                 </p>
 
                 {/* Auteur et date */}
@@ -95,8 +95,8 @@ function ListeRessources() {
                 <TodoBadge texte={ressource.todo} className="mt-4" />
 
                 {/* Lien externe (visible au survol) */}
-                <div className="mt-4 flex items-center text-[#1A7A4A] text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span>Lire l'article original</span>
+                <div className="mt-4 flex items-center text-[#2FA36B] text-sm font-semibold opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300">
+                  <span>Lire l&apos;article original</span>
                   <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>

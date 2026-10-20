@@ -33,7 +33,7 @@ export default function CallToAction() {
   return (
     <section className="relative py-24 px-6 overflow-hidden" ref={sectionRef}>
       {/* Fond vert avec effet de vague */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1A7A4A] to-[#0f4f2f]">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1A7A4A] to-[#0f4f2f]" aria-hidden="true">
         {/* Motif technologique en arrière-plan */}
         <div className="absolute inset-0 opacity-10">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -87,7 +87,7 @@ export default function CallToAction() {
             className="group bg-white text-[#1A7A4A] hover:bg-[#F5C518] hover:text-[#1A1A1A] font-bold px-10 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg flex items-center gap-2"
           >
             <span>Contacter HeyTech</span>
-            <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </a>
@@ -97,7 +97,7 @@ export default function CallToAction() {
             rel="noopener noreferrer"
             className="group bg-white text-[#1A7A4A] hover:bg-[#F5C518] hover:text-[#1A1A1A] font-bold px-10 py-4 rounded-full transition-all duration-300 hover:scale-105 shadow-lg flex items-center gap-2 border-2 border-white"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.149-.67.149-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
             </svg>
             <span>Discuter sur WhatsApp</span>
@@ -108,7 +108,7 @@ export default function CallToAction() {
         {delaiReponse && (
           <>
             <p className="text-white/80 text-sm mt-6">
-              ⚡ Réponse sous {delaiReponse.valeur} ouvrées
+              <span aria-hidden="true">⚡</span> Réponse sous {delaiReponse.valeur} ouvrées
             </p>
             <TodoBadge texte={delaiReponse.todo} className="mt-2 inline-block !text-white !border-white/60" />
           </>

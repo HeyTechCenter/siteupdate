@@ -44,7 +44,7 @@ export default function Projets() {
           className="text-center mb-12 opacity-0 translate-y-8 transition-all duration-700"
         >
           <span className="text-[#F5C518] text-xs font-semibold tracking-widest uppercase">
-            Ce qu'on a construit
+            Ce qu&apos;on a construit
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mt-3 mb-6">
             Nos projets
@@ -60,7 +60,9 @@ export default function Projets() {
           {categories.map((cat) => (
             <button
               key={cat.id}
+              type="button"
               onClick={() => setFiltre(cat.id)}
+              aria-pressed={filtre === cat.id}
               className={`px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
                 filtre === cat.id
                   ? 'bg-[#1A7A4A] text-white'
@@ -82,18 +84,18 @@ export default function Projets() {
               style={{ transitionDelay: `${(i + 2) * 100}ms` }}
             >
               {/* Image/Icône */}
-              <div className="bg-[#1A1A1A] h-36 flex items-center justify-center text-6xl border-b border-[#1A7A4A]/10">
+              <div className="bg-[#1A1A1A] h-36 flex items-center justify-center text-6xl border-b border-[#1A7A4A]/10" aria-hidden="true">
                 {projet.image}
               </div>
 
               <div className="p-6">
                 {/* Badge catégorie */}
-                <span className="text-xs font-semibold text-[#1A7A4A] bg-[#1A7A4A]/10 border border-[#1A7A4A]/20 px-3 py-1 rounded-full">
+                <span className="text-xs font-semibold text-[#2FA36B] bg-[#1A7A4A]/10 border border-[#1A7A4A]/20 px-3 py-1 rounded-full">
                   {labelCategorie(projet.categorie)}
                 </span>
 
                 {/* Titre */}
-                <h3 className="text-white font-bold text-lg mt-3 mb-2 group-hover:text-[#1A7A4A] transition-colors duration-300">
+                <h3 className="text-white font-bold text-lg mt-3 mb-2 group-hover:text-[#2FA36B] transition-colors duration-300">
                   {projet.titre}
                 </h3>
 
@@ -107,7 +109,7 @@ export default function Projets() {
                   {projet.stack.map((tech) => (
                     <span
                       key={tech}
-                      className="text-xs text-gray-500 bg-[#1A1A1A] border border-gray-700 px-2 py-1 rounded"
+                      className="text-xs text-gray-400 bg-[#1A1A1A] border border-gray-700 px-2 py-1 rounded"
                     >
                       {tech}
                     </span>
@@ -118,10 +120,10 @@ export default function Projets() {
                 {projet.lien && (
                   <a
                     href={projet.lien}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-[#1A7A4A] hover:text-white transition-colors duration-200"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-[#2FA36B] hover:text-white transition-colors duration-200"
                   >
                     Voir le projet
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </a>

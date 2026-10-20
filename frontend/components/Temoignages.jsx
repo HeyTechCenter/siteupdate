@@ -9,9 +9,10 @@ const temoignages = visibles(tousLesTemoignages);
 
 function Etoiles({ note }) {
   return (
-    <div className="flex gap-1 mb-4">
+    <div className="flex justify-center gap-1 mb-4" role="img" aria-label={`Note : ${note} sur 5`}>
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
+          aria-hidden="true"
           key={i}
           className={`w-4 h-4 ${i < note ? 'text-[#F5C518]' : 'text-gray-600'}`}
           fill="currentColor"
@@ -28,7 +29,9 @@ function Carrousel() {
   const [actif, setActif] = useState(0);
   const itemsRef = useRef([]);
 
+  // Défilement automatique, sauf si l'utilisateur préfère réduire les animations
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const interval = setInterval(() => {
       setActif((prev) => (prev + 1) % temoignages.length);
     }, 5000);
@@ -61,7 +64,7 @@ function Carrousel() {
           className="text-center mb-16 opacity-0 translate-y-8 transition-all duration-700"
         >
           <span className="text-[#F5C518] text-xs font-semibold tracking-widest uppercase">
-            Ce qu'ils disent
+            Ce qu&apos;ils disent
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mt-3 mb-6">
             Ils nous font confiance
@@ -74,21 +77,21 @@ function Carrousel() {
           ref={(el) => (itemsRef.current[1] = el)}
           className="opacity-0 translate-y-8 transition-all duration-700 delay-100"
         >
-          <div className="bg-[#111111] border border-[#1A7A4A]/20 rounded-2xl p-10 text-center relative">
+          <div aria-live="polite" className="bg-[#111111] border border-[#1A7A4A]/20 rounded-2xl p-10 text-center relative">
             {/* Guillemet décoratif */}
-            <div className="text-[#1A7A4A]/20 text-8xl font-serif absolute top-4 left-8 leading-none">
-              "
+            <div className="text-[#2FA36B]/20 text-8xl font-serif absolute top-4 left-8 leading-none" aria-hidden="true">
+              &ldquo;
             </div>
 
             <Etoiles note={temoignages[actif].note} />
 
             <p className="text-gray-300 text-lg leading-relaxed mb-8 italic relative z-10">
-              "{temoignages[actif].texte}"
+              &laquo;&nbsp;{temoignages[actif].texte}&nbsp;&raquo;
             </p>
 
             <div>
               <p className="text-white font-bold">{temoignages[actif].nom}</p>
-              <p className="text-[#1A7A4A] text-sm mt-1">{temoignages[actif].role}</p>
+              <p className="text-[#2FA36B] text-sm mt-1">{temoignages[actif].role}</p>
             </div>
 
             <TodoBadge texte={temoignages[actif].todo} className="mt-6 inline-block" />
@@ -99,7 +102,10 @@ function Carrousel() {
             {temoignages.map((_, i) => (
               <button
                 key={i}
+                type="button"
                 onClick={() => setActif(i)}
+                aria-label={`Afficher le témoignage ${i + 1}`}
+                aria-current={i === actif}
                 className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                   i === actif ? 'bg-[#1A7A4A] w-6' : 'bg-gray-600'
                 }`}
@@ -113,7 +119,9 @@ function Carrousel() {
           {temoignages.map((t, i) => (
             <button
               key={t.id}
+              type="button"
               onClick={() => setActif(i)}
+              aria-pressed={i === actif}
               ref={(el) => (itemsRef.current[2 + i] = el)}
               className={`opacity-0 translate-y-8 transition-all duration-700 p-4 rounded-xl border text-left ${
                 i === actif
@@ -123,7 +131,7 @@ function Carrousel() {
               style={{ transitionDelay: `${(i + 2) * 100}ms` }}
             >
               <p className="text-white text-xs font-bold truncate">{t.nom}</p>
-              <p className="text-gray-500 text-xs mt-1 truncate">{t.role}</p>
+              <p className="text-gray-400 text-xs mt-1 truncate">{t.role}</p>
             </button>
           ))}
         </div>

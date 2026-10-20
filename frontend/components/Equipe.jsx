@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { membres } from '@/data/equipe';
 
 const deptColors = {
-  "DEV": { bg: "bg-[#1A7A4A]/10", border: "border-[#1A7A4A]/30", text: "text-[#1A7A4A]" },
+  "DEV": { bg: "bg-[#1A7A4A]/10", border: "border-[#1A7A4A]/30", text: "text-[#2FA36B]" },
   "AI & Research": { bg: "bg-[#F5C518]/10", border: "border-[#F5C518]/30", text: "text-[#F5C518]" },
   "Akatsuki": { bg: "bg-purple-500/10", border: "border-purple-500/30", text: "text-purple-400" },
 };
@@ -71,7 +71,7 @@ export default function Equipe() {
                 </div>
 
                 {/* Nom */}
-                <h3 className="text-white font-bold text-sm mb-1 group-hover:text-[#1A7A4A] transition-colors duration-300">
+                <h3 className="text-white font-bold text-sm mb-1 group-hover:text-[#2FA36B] transition-colors duration-300">
                   {m.nom}
                 </h3>
 
@@ -86,7 +86,7 @@ export default function Equipe() {
                 {/* Spécialités */}
                 <div className="mt-3 space-y-1">
                   {m.specialites.map((spec) => (
-                    <p key={spec} className="text-gray-500 text-xs">{spec}</p>
+                    <p key={spec} className="text-gray-400 text-xs">{spec}</p>
                   ))}
                 </div>
               </div>
