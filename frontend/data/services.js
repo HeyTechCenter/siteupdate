@@ -33,12 +33,10 @@ export const services = [
     icon:  '▶️',
   },
   {
-    // TODO : compléter les modules, le lieu et le format des formations
-    titre:  'Formations',
-    desc:   'Formations proposées par l\'équipe HeyTech Center.',
+    // TODO : préciser les modules, le lieu et le format des formations
+    titre:  'Formations en IA',
+    desc:   'Formations en intelligence artificielle dispensées par l\'équipe HeyTech Center.',
     icon:   '🎓',
-    publie: false,
-    todo:   'préciser les modules, le lieu et le format des formations',
   },
   {
     // TODO : offre pas encore lancée — passer publie à true au lancement
