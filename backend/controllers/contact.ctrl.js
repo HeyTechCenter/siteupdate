@@ -1,4 +1,5 @@
 const nodemailer      = require('nodemailer');
+const mongoose        = require('mongoose');
 const ContactMessage  = require('../models/ContactMessage');
 
 // Échappe les caractères HTML pour empêcher l'injection dans l'email
@@ -15,8 +16,13 @@ exports.sendContact = async (req, res, next) => {
     // ── 1. Données déjà validées par le middleware validateContact ──
     const { name, company, email, phone, message } = req.contact;
 
-    // ── 2. Sauvegarde en base MongoDB ──────────────────────
-    await ContactMessage.create({ name, company, email, phone, message });
+    // ── 2. Sauvegarde en base MongoDB (facultative) ────────
+    // Sans connexion MongoDB, le message est seulement envoyé par email
+    if (mongoose.connection.readyState === 1) {
+      await ContactMessage.create({ name, company, email, phone, message });
+    } else {
+      console.warn('⚠️  MongoDB non connecté — message envoyé par email uniquement');
+    }
 
     // ── 3. Envoi email via Nodemailer ──────────────────────
     const transporter = nodemailer.createTransport({
